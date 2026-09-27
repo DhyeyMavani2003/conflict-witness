@@ -1,0 +1,12 @@
+{
+  "name": "conflict-witness",
+  "version": "0.1.0",
+  "description": "Merge conflicts for English: find agent-instruction conflicts, write witness tasks, remember team decisions in GBrain.",
+  "type": "module",
+  "bin": { "witness": "src/witness.ts" },
+  "scripts": {
+    "demo": "./demo/run.sh",
+    "check": "bun src/witness.ts check"
+  },
+  "license": "MIT"
+}
