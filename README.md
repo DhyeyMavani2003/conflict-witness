@@ -1,6 +1,6 @@
 # Conflict Witness
 
-**Live report (Superset page):** https://app.superset.sh/page/conflict-witness-bu4rtr · **Repo:** https://github.com/DhyeyMavani2003/conflict-witness
+**Demo video (90s):** https://app.superset.sh/page/conflict-witness-demo-fbmdp8 · **Live report (Superset page):** https://app.superset.sh/page/conflict-witness-bu4rtr · **Repo:** https://github.com/DhyeyMavani2003/conflict-witness
 
 **Merge conflicts for English.** Conflict Witness checks agent instruction files (`CLAUDE.md`, `AGENTS.md`, `SKILL.md`) for contradictions at merge time.
 
