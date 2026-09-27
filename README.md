@@ -1,5 +1,7 @@
 # Conflict Witness
 
+**Live report (Superset page):** https://app.superset.sh/page/conflict-witness-bu4rtr · **Repo:** https://github.com/DhyeyMavani2003/conflict-witness
+
 **Merge conflicts for English.** Conflict Witness checks agent instruction files (`CLAUDE.md`, `AGENTS.md`, `SKILL.md`) for contradictions at merge time.
 
 Teams now merge skills and rules files as often as they merge code. Git will merge two lines that tell the agent opposite things and report no conflict. Conflict Witness finds those pairs, shows a concrete task that makes both rules fire, and records the team's decision in GBrain so the same pair isn't flagged again.
