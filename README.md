@@ -81,10 +81,21 @@ bun src/witness.ts publish
 | `ship` skill: AskUserQuestion for MAJOR bumps | **resolved_by_precedence**, because the override clause names ship |
 | new `legacy/CLAUDE.md`: "use npm in this directory" | **resolved_by_scope**, because it only applies inside `legacy/` |
 
-## Found on our own dev machine
+## Found on our own dev machine (real runs, not fixtures)
 
-- **Open conflict.** `~/.claude/CLAUDE.md:5` says *"Use the /browse skill from gstack for all web browsing. Never use mcp\_\_claude-in-chrome\_\_\* tools."* An installed `browser-automation` skill also claims browser tasks. Neither file says which one wins.
-- **Correctly not flagged.** gstack's `CLAUDE.md:517-520` says *"Do not ask him to choose or approve a version… This policy overrides generic version-approval prompts in /ship"*. `ship/SKILL.md:730` says *"MINOR: AskUserQuestion for any feature signal"*. The tool reports this as **resolved_by_precedence**, not a conflict.
+**1. `scan --global --task "open localhost:3000 in a browser, click through the signup page and check the console for errors"`: 2 open conflicts**
+
+- `~/.claude/CLAUDE.md:5`: *"Use the `/browse` skill from gstack for all web browsing. Never use `mcp__claude-in-chrome__*` tools."* vs `~/.claude/skills/browser-automation/SKILL.md:3`, whose description claims *"check the page… console errors… verify the UI"*. Nothing says which one wins for localhost QA.
+- `browse/SKILL.md:5` and `browser-automation/SKILL.md:3` both claim the same job ("click through a flow… check console errors"), and neither defers to the other.
+- The proposed fix scopes the global rule: *"…use `/browse` for external or user-facing sites; for headless verification of your own local dev server, use `browser-automation`."*
+
+**2. `scan --repo ~/.claude/skills/gstack --task "ship it: bump the version and release"`: 0 open, 4 correctly resolved**
+
+- `ship/SKILL.md:720` (AskUserQuestion for MINOR/MAJOR bumps) vs gstack `CLAUDE.md:520`: **resolved by precedence**. The evidence quoted is *"overrides generic version-approval prompts in `/ship` and `/document-release`."*
+- `document-release/SKILL.md:572` vs `CLAUDE.md:520`: **resolved by precedence**, because the override names document-release explicitly.
+- Two more pairs (a CHANGELOG rule pair and a docs-sync guard pair) were **resolved by scope**.
+
+This is the false-positive test that matters. A pairwise linter flags every one of these; Conflict Witness reads the override clauses and stays quiet.
 
 ## GBrain: decisions the whole team can see (sponsor)
 
